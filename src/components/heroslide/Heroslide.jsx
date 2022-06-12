@@ -8,7 +8,7 @@ import apiConfig from "../../api/apiConfig";
 import Button, { OutlineButton } from "../button/Button";
 
 import "./hero-slide.scss";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const HeroSlide = () => {
   // const [movieItems, setMovieItems] = useState([]);
@@ -75,12 +75,14 @@ const HeroSlide = () => {
 
 const HeroSlideItem = (props) => {
   let navigate = useNavigate();
+
   const item = props.item;
+  const link = "/" + "book/detail" + "/" + item.endpoint;
   const poster = props.poster;
   // console.log(poster);
   const background = item.theme;
-  console.log(poster);
-  console.log(background);
+  // console.log(poster);
+  // console.log(background);
   return (
     <div
       className={`hero-slide__item ${props.className}`}
@@ -91,12 +93,9 @@ const HeroSlideItem = (props) => {
           <h2 className="title">{item.title}</h2>
           <div className="overview">{item.description}</div>
           <div className="btns">
-            <Button onClick={() => navigate(`book/detail/${item.endpoint}`)}>
-              Watch now
-            </Button>
-            <OutlineButton onClick={() => console.log(123)}>
-              Watch trailer
-            </OutlineButton>
+            <Link to={link}>
+              <Button>Watch now</Button>
+            </Link>
           </div>
         </div>
         <div className="hero-slide__item__content__poster">

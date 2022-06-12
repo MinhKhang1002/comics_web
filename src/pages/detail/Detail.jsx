@@ -8,12 +8,14 @@ import CastList from "./CastList";
 import VideoList from "./VideoList";
 import MovieList from "../../components/movielist/MovieList";
 import Button, { OutlineButton } from "../../components/button/Button";
+import { Link } from "react-router-dom";
 
 const Detail = () => {
   const { endpoint } = useParams();
   const [item, setItem] = useState(null);
   const [chapters, setChapters] = useState([]);
-  // console.log(endpoint);
+  // const link = "/" + "read" + "/" + item.endpoint + "/";
+  console.log(endpoint);
   const params = {};
   useEffect(() => {
     const getDetail = async () => {
@@ -21,6 +23,7 @@ const Detail = () => {
       const responseChapter = await comics.chapter(endpoint);
       setItem(response.data.data[0]);
       setChapters(responseChapter.data.data);
+
       // console.log(responseChapter.data.data);
       // console.log(response.data.data);
       window.scrollTo(0, 0);
@@ -70,10 +73,12 @@ const Detail = () => {
                 {chapters.map((chapter) => (
                   <ul>
                     <li>
-                      <OutlineButton className="small mb-1" href="#">
-                        {chapter.chapter_endpoint.charAt(0).toUpperCase() +
-                          chapter.chapter_endpoint.slice(1)}
-                      </OutlineButton>
+                      <Link to={chapter.chapter_endpoint}>
+                        <OutlineButton className="small mb-1" href="#">
+                          {chapter.chapter_endpoint.charAt(0).toUpperCase() +
+                            chapter.chapter_endpoint.slice(1)}
+                        </OutlineButton>
+                      </Link>
                     </li>
                   </ul>
                 ))}

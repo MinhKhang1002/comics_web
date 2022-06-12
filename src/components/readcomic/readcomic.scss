@@ -1,0 +1,14 @@
+@use "../../scss/breakpoint" as *;
+
+.main {
+    margin-top: 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.comic {
+    margin: 40px;
+    text-align: left;
+}

@@ -22,65 +22,43 @@ function Form(props) {
   const onSubmit = (data) => {
     const getToken = async () => {
       try {
-        const response = await loginApi.getToken(data);
+        // const response = await loginApi.getToken(data);
 
-        setAccessToken(response.data.data[0].accessToken);
-        sessionStorage.setItem("token", response.data.data[0].accessToken);
-        navigate("/home");
-        // console.log(response);
+        // setAccessToken(response.data.data[0].accessToken);
+        // sessionStorage.setItem("token", response.data.data[0].accessToken);
+        // navigate("/home");
+        // // console.log(response);
+        console.log(data.email);
       } catch (error) {
         alert("Sai tên đăng nhập hoặc mật khẩu");
       }
     };
     getToken();
   };
-  const link = "/forgot-pasword";
-  const linkRegister = "/signup";
+
   const [dataLogin, setDataLogin] = useState({});
 
   return (
     <div id="wrapper">
       <form action="" id="form-login" onSubmit={handleSubmit(onSubmit)}>
-        <h1 class="form-heading">Form đăng nhập</h1>
+        <h1 class="form-heading">Quên mật khẩu</h1>
         <div class="form-group">
           <i class="far fa-user"></i>
           <input
             type="text"
             class="form-input"
-            placeholder="Tên đăng nhập"
+            placeholder="Nhập Email"
             defaultValue=""
-            {...register("username")}
+            {...register("email")}
           />
         </div>
-        <div class="form-group">
-          <i class="fas fa-key"></i>
-          <input
-            type="password"
-            class="form-input"
-            placeholder="Mật khẩu"
-            defaultValue=""
-            {...register("password")}
-          />
-          <div id="eye">
-            <i class="far fa-eye"></i>
-          </div>
-        </div>
+
         <input
           type="submit"
-          value="Đăng nhập"
+          value="Gửi Mail Xác Thực"
           class="form-submit"
           onClick={handleSubmit}
         />
-        <Link to={linkRegister}>
-          <input
-            type="submit"
-            value="Đăng ký"
-            class="form-submit"
-            onClick={handleSubmit}
-          />
-        </Link>
-
-        <Link to={link}>Quên mật khẩu?</Link>
       </form>
     </div>
   );

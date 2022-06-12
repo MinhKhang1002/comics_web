@@ -16,7 +16,7 @@ const Home = () => {
         <div className="section mb-3">
           <div className="section__header mb-2">
             <h2>Top Day Comics</h2>
-            <Link to="/movie">
+            <Link to="/comics">
               <OutlineButton className="small">View More</OutlineButton>
             </Link>
           </div>
@@ -25,7 +25,7 @@ const Home = () => {
         <div className="section mb-3">
           <div className="section__header mb-2">
             <h2>Top Rates Comics</h2>
-            <Link to="/movie">
+            <Link to="/comics">
               <OutlineButton className="small">View More</OutlineButton>
             </Link>
           </div>
@@ -37,7 +37,7 @@ const Home = () => {
         <div className="section mb-3">
           <div className="section__header mb-2">
             <h2>Top Search Comics</h2>
-            <Link to="/movie">
+            <Link to="/comics">
               <OutlineButton className="small">View More</OutlineButton>
             </Link>
           </div>
@@ -49,7 +49,7 @@ const Home = () => {
         <div className="section mb-3">
           <div className="section__header mb-2">
             <h2>Top Month Comics</h2>
-            <Link to="/movie">
+            <Link to="/comics">
               <OutlineButton className="small">View More</OutlineButton>
             </Link>
           </div>
@@ -58,7 +58,7 @@ const Home = () => {
         <div className="section mb-3">
           <div className="section__header mb-2">
             <h2>Top Year Comics</h2>
-            <Link to="/movie">
+            <Link to="/comics">
               <OutlineButton className="small">View More</OutlineButton>
             </Link>
           </div>

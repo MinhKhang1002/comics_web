@@ -2,6 +2,8 @@ import React from "react";
 
 import { Link, useLocation } from "react-router-dom";
 import { useRef, useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { access_token } from "../../store/login";
 
 import "./header.scss";
 
@@ -19,6 +21,8 @@ const headerNav = [
 ];
 
 const Header = () => {
+  const [accessToken, setAccessToken] = useRecoilState(access_token);
+
   const { pathname } = useLocation();
   const headerRef = useRef(null);
   const active = headerNav.findIndex((e) => e.path === pathname);
@@ -39,6 +43,9 @@ const Header = () => {
     };
   }, []);
 
+  const signOut = () => {
+    setAccessToken(null);
+  };
   return (
     <div ref={headerRef} className="header">
       <div className="header__wrap container">
@@ -52,6 +59,11 @@ const Header = () => {
               <Link to={e.path}>{e.display}</Link>
             </li>
           ))}
+          <li>
+            <Link to="/login" onClick={signOut}>
+              {accessToken ? "Đăng xuất" : "Đăng nhập"}
+            </Link>
+          </li>
         </ul>
       </div>
     </div>

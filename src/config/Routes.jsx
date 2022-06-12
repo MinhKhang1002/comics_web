@@ -1,22 +1,87 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import Home from "../pages/Home";
 import Catalog from "../pages/Catalog";
 import Detail from "../pages/detail/Detail";
 import Login from "../components/login/Login";
+import ReadComic from "../components/readcomic/ReadComic";
+import ForgotPassword from "../components/login/ForgotPassword";
+import SignUp from "../components/login/SignUp";
+import { useRecoilState } from "recoil";
+import { access_token } from "../store/login";
+
+const PATHS = {
+  SIGNUP: "/signup",
+  LOGIN: "/login",
+  FORGOT_PASSWORD: "/forgot-password",
+};
+
+const routeHome = [
+  {
+    exact: true,
+    path: PATHS.LOGIN,
+    component: Login,
+  },
+  {
+    exact: true,
+    path: PATHS.SIGNUP,
+    component: SignUp,
+  },
+  {
+    exact: true,
+    path: PATHS.FORGOT_PASSWORD,
+    component: ForgotPassword,
+  },
+];
 
 const Router = () => {
+  const [accessToken, setAccessToken] = useRecoilState(access_token);
+  useEffect(() => {
+    setAccessToken(sessionStorage.getItem("token"));
+  }, []);
+
   return (
     <Routes>
-      <Route path="/:category/search/:keyword" element={<Catalog />} />
-      <Route path="/:category/:id" element={<Detail />} />
-      <Route path="/book/detail/:endpoint" element={<Detail />} />
-      <Route path="/:category" element={<Catalog />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/" element={<Login />} />
+      <Route
+        path="/:comics/search/:keyword"
+        element={accessToken ? <Catalog></Catalog> : <Navigate to="/login" />}
+      />
+      <Route
+        path="/comics"
+        element={accessToken ? <Catalog></Catalog> : <Navigate to="/login" />}
+      />
+      <Route
+        path="/book/detail/:endpoint/:chapter"
+        element={
+          accessToken ? <ReadComic></ReadComic> : <Navigate to="/login" />
+        }
+      />
+      {/* <Route path="/:category/:id" element={<Detail />} /> */}
+      <Route
+        path="/book/detail/:endpoint"
+        element={accessToken ? <Detail></Detail> : <Navigate to="/login" />}
+      />
+      <Route
+        path="/home"
+        element={accessToken ? <Home></Home> : <Navigate to="/login" />}
+      />
+
+      <Route
+        path="/login"
+        element={accessToken ? <Home></Home> : <Login></Login>}
+      />
+      <Route
+        path="*"
+        element={accessToken ? <Home></Home> : <Navigate to="/login" />}
+      />
+
+      {/* <Route path="/login" element={<Login />} /> */}
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/forgot-pasword" element={<ForgotPassword />} />
     </Routes>
   );
 };
+export { routeHome, PATHS };
 export default Router;
