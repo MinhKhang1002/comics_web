@@ -3,7 +3,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useRef, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { access_token } from "../../store/login";
+import { access_token, username } from "../../store/login";
 
 import "./header.scss";
 
@@ -22,6 +22,7 @@ const headerNav = [
 
 const Header = () => {
   const [accessToken, setAccessToken] = useRecoilState(access_token);
+  const [user, setUser] = useRecoilState(username);
 
   const { pathname } = useLocation();
   const headerRef = useRef(null);
@@ -44,7 +45,9 @@ const Header = () => {
   }, []);
 
   const signOut = () => {
-    setAccessToken(null);
+    sessionStorage.removeItem("token");
+    setAccessToken("");
+    setUser("");
   };
   return (
     <div ref={headerRef} className="header">
@@ -59,9 +62,10 @@ const Header = () => {
               <Link to={e.path}>{e.display}</Link>
             </li>
           ))}
+          {user ? <li>Hello {user}</li> : ""}
           <li>
             <Link to="/login" onClick={signOut}>
-              {accessToken ? "Đăng xuất" : "Đăng nhập"}
+              {accessToken ? "Đăng xuất " : "Đăng nhập"}
             </Link>
           </li>
         </ul>

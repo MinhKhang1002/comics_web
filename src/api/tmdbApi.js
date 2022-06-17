@@ -13,6 +13,8 @@ export const categoryComics = {
   topsearch: "topsearch",
   lastupdate: "lastupdate",
   relate: "relate",
+  history: "history",
+  bookfollow: "bookfollow",
 };
 
 export const movieType = {
@@ -83,6 +85,14 @@ export const comics = {
   getTopRating: () => {
     const url = "book/" + "top-rating";
     return comicsAPI.get(url);
+  },
+  getBookFollowing: (config) => {
+    const url = "/user/book-following";
+    return comicsAPI.get(url, config);
+  },
+  getHistory: (config) => {
+    const url = "/user/history";
+    return comicsAPI.get(url, config);
   },
   detail: (endpoint) => {
     const url = "book/detail/" + endpoint;

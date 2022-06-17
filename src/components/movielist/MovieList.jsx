@@ -2,16 +2,23 @@ import React, { useState, useEffect } from "react";
 
 import PropTypes from "prop-types";
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import { access_token } from "../../store/login";
 import { Link } from "react-router-dom";
 import Button from "../button/Button";
 import tmdbApi, { category, categoryComics, comics } from "../../api/tmdbApi";
 import apiConfig from "../../api/apiConfig";
 import "./movie-list.scss";
 import MovieCard from "../moviecard/MovieCard";
+import { useRecoilState } from "recoil";
 
 const MovieList = (props) => {
+  const [accessToken, setAccessToken] = useRecoilState(access_token);
+  const token = accessToken;
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
   const [items, setItems] = useState([]);
+  const [history, setHistory] = useState([]);
   useEffect(() => {
     const getList = async () => {
       //   let response = null;
@@ -54,6 +61,12 @@ const MovieList = (props) => {
           case categoryComics.lastupdate:
             response = await comics.getLastUpdate();
             break;
+          case categoryComics.bookfollow:
+            response = await comics.getBookFollowing(config);
+            break;
+          case categoryComics.history:
+            response = await comics.getHistory(config);
+            break;
 
           // default:
           //   response = await tmdbApi.getTvList(props.type, {
@@ -63,9 +76,12 @@ const MovieList = (props) => {
       } else {
         response = await comics.relate(props.endpoint);
       }
-      // response = await comics.getTopDay();
-      // console.log(response.data.data);
+      if (props.category === categoryComics.history) {
+        setHistory(response.data.data);
+      }
+
       setItems(response.data.data);
+      // console.log(response.data.data);
     };
 
     getList();
@@ -77,6 +93,11 @@ const MovieList = (props) => {
         {items.map((item, i) => (
           <SwiperSlide key={i}>
             <MovieCard item={item} />
+          </SwiperSlide>
+        ))}
+        {history.map((item, i) => (
+          <SwiperSlide key={i}>
+            <MovieCard item={item.book} />
           </SwiperSlide>
         ))}
       </Swiper>

@@ -67,6 +67,7 @@ const MovieGrid = (props) => {
     }
     // console.log(1, response);
     setItems([...items, ...response.data.data]);
+    console.log(response.data.data[0]);
     setPage(page + 1);
   };
 

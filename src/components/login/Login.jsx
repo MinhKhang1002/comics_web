@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 // import { loginApi } from "../../api/loginApi";
 import Cookies from "js-cookie";
-import { access_token } from "../../store/login";
+import { access_token, username } from "../../store/login";
 import { useRecoilState } from "recoil";
 import { Link, useNavigate } from "react-router-dom";
 import "./login.scss";
@@ -18,6 +18,7 @@ function Form(props) {
   const navigate = useNavigate();
 
   const [accessToken, setAccessToken] = useRecoilState(access_token);
+  const [user, setUser] = useRecoilState(username);
 
   const onSubmit = (data) => {
     const getToken = async () => {
@@ -25,6 +26,8 @@ function Form(props) {
         const response = await loginApi.getToken(data);
 
         setAccessToken(response.data.data[0].accessToken);
+        setUser(response.data.data[0].user.username);
+
         sessionStorage.setItem("token", response.data.data[0].accessToken);
         navigate("/home");
         // console.log(response);

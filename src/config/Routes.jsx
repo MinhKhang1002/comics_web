@@ -48,6 +48,7 @@ const Router = () => {
         path="/:comics/search/:keyword"
         element={accessToken ? <Catalog></Catalog> : <Navigate to="/login" />}
       />
+
       <Route
         path="/comics"
         element={accessToken ? <Catalog></Catalog> : <Navigate to="/login" />}
@@ -58,11 +59,12 @@ const Router = () => {
           accessToken ? <ReadComic></ReadComic> : <Navigate to="/login" />
         }
       />
-      {/* <Route path="/:category/:id" element={<Detail />} /> */}
       <Route
         path="/book/detail/:endpoint"
-        element={accessToken ? <Detail></Detail> : <Navigate to="/login" />}
+        element={true ? <Detail></Detail> : <Navigate to="/login" />}
       />
+
+      {/* <Route path="/book/detail/:endpoint" element={<Detail></Detail>} />      sửa detail */}
       <Route
         path="/home"
         element={accessToken ? <Home></Home> : <Navigate to="/login" />}

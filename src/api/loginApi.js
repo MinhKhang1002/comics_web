@@ -9,4 +9,8 @@ export const loginApi = {
     const url = "/user/register";
     return comicsAPI.post(url, params);
   },
+  comment: (endpoint, params) => {
+    const url = "comment/" + endpoint;
+    return comicsAPI.post(url, params);
+  },
 };

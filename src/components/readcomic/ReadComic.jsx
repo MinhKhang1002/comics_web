@@ -3,15 +3,23 @@ import PropTypes from "prop-types";
 import "./readcomic.scss";
 import { useParams } from "react-router";
 import { comicsAPI } from "../../api/axiosClient";
+import { useRecoilState } from "recoil";
+import { access_token } from "../../store/login";
 
 const ReadComic = (props) => {
   const { endpoint, chapter } = useParams();
   const [detail, setDetail] = useState();
+  const [accessToken, setAccessToken] = useRecoilState(access_token);
+  const token = accessToken;
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
   useEffect(() => {
     const getDetail = async () => {
       try {
         const response = await comicsAPI.get(
-          `chapter/detail/${endpoint}/${chapter}?view=true`
+          `chapter/detail/${endpoint}/${chapter}?view=true`,
+          config
         );
         console.log(response.data.data[0]);
         setDetail(response.data.data[0]);
