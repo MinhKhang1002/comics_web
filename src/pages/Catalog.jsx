@@ -9,7 +9,7 @@ const Catalog = () => {
 
   return (
     <>
-      <PageHeader>Comics</PageHeader>
+      <PageHeader>Danh sách truyện</PageHeader>
       <div className="container">
         <div className="section mb-3">
           <MovieGrid />

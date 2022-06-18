@@ -11,11 +11,11 @@ import logo from "../../assets/tmovie.png";
 
 const headerNav = [
   {
-    display: "Home",
+    display: "Trang Chủ",
     path: "/home",
   },
   {
-    display: "Comics",
+    display: "Danh sách truyện",
     path: "/comics",
   },
 ];
@@ -54,7 +54,7 @@ const Header = () => {
       <div className="header__wrap container">
         <div className="logo">
           <img src={logo} alt="123" />
-          <Link to="/home">Comics</Link>
+          <Link to="/home">Truyện Hay</Link>
         </div>
         <ul className="header__nav">
           {headerNav.map((e, i) => (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router";
 
 import tmdbApi, { categoryComics, comics, movieType } from "../../api/tmdbApi";
@@ -17,9 +17,12 @@ import { useForm } from "react-hook-form";
 const Detail = () => {
   const [accessToken, setAccessToken] = useRecoilState(access_token);
   const [user, setUser] = useRecoilState(username);
+  const [inputValue, setInputValue] = useState("123");
+
   // console.log(user);
   const {
     register,
+    reset,
     handleSubmit,
     watch,
     formState: { errors },
@@ -28,6 +31,7 @@ const Detail = () => {
   const [item, setItem] = useState(null);
   const [chapters, setChapters] = useState([]);
   const [comments, setComments] = useState([]);
+  const [isFollow, setIsFollow] = useState(false);
   const token = accessToken;
   const config = {
     headers: { Authorization: `Bearer ${token}` },
@@ -40,7 +44,9 @@ const Detail = () => {
 
       const newComments = [...comments];
       newComments.unshift(newComment);
+      setInputValue("");
       setComments(newComments);
+      reset();
 
       // console.log(newComments.data.data[0]);
       // setComments([...comments, ...newComments.data.data[0]]);
@@ -54,6 +60,12 @@ const Detail = () => {
       const response = await comics.detail(endpoint);
       const responseChapter = await comics.chapter(endpoint);
       const responseComments = await comicsAPI.get(`/comment/${endpoint}`);
+      const responseFollow = await comics.getBookFollowing(config);
+      responseFollow.data.data.map((item, i) => {
+        if (item.endpoint === endpoint) {
+          setIsFollow(true);
+        }
+      });
       setItem(response.data.data[0]);
       setChapters(responseChapter.data.data);
       setComments(responseComments.data.data);
@@ -72,9 +84,9 @@ const Detail = () => {
       const index = comments.findIndex((x) => x.id === id);
       console.log(config);
       comicsAPI.delete(`/comment/${id}`, config);
-      // const newComments = [...comments];
-      // newComments.splice(index, 1);
-      // setComments(newComments);
+      const newComments = [...comments];
+      newComments.splice(index, 1);
+      setComments(newComments);
     } catch {
       console.log("sai rồiiiiii");
     }
@@ -89,9 +101,8 @@ const Detail = () => {
       );
 
       if (follow.data.status === "success") {
-        alert("Follow Thành công");
-      } else {
-        alert("Thất bại !");
+        // alert("Follow Thành công");
+        setIsFollow(true);
       }
 
       // console.log(newComments.data.data[0]);
@@ -108,7 +119,8 @@ const Detail = () => {
       );
 
       if (follow.data.status === "success") {
-        alert("Unfollow Thành công");
+        // alert("Unfollow Thành công");
+        setIsFollow(false);
       } else {
         alert("Thất bại !");
       }
@@ -118,6 +130,11 @@ const Detail = () => {
     };
     follow();
   };
+  // const handleUserInput = (e) => {
+  //   e.preventDefault();
+  //   console.log(e.target.value);
+  //   setInputValue(e.target.value);
+  // };
 
   return (
     <>
@@ -177,18 +194,27 @@ const Detail = () => {
                 ></span>
               </div>
               <div className="book__follow">
-                <Button className="small" onClick={() => handleFollow()}>
-                  Follow
-                </Button>
-                <OutlineButton className="small ml-1" onClick={handleUnfollow}>
+                {isFollow === false ? (
+                  <Button className="small" onClick={() => handleFollow()}>
+                    Follow
+                  </Button>
+                ) : (
+                  <OutlineButton
+                    className="small ml-1"
+                    onClick={handleUnfollow}
+                  >
+                    Un Follow
+                  </OutlineButton>
+                )}
+                {/* <OutlineButton className="small ml-1" onClick={handleUnfollow}>
                   Un Follow
-                </OutlineButton>
+                </OutlineButton> */}
               </div>
               <p className="overview">{item.description}</p>
 
               <div className="cast">
                 <div className="section__header">
-                  <h2>Author</h2>
+                  <h2>Tác giả</h2>
                 </div>
                 <CastList id="424" />
               </div>
@@ -211,12 +237,13 @@ const Detail = () => {
 
           <div className="container">
             <form class="section review-list" onSubmit={handleSubmit(onSubmit)}>
-              <label for="subject">Comments</label>
+              <label for="subject">Bình luận</label>
               {accessToken ? (
                 <textarea
+                  type="text"
                   id="comments"
                   name="comments"
-                  placeholder="Write something.."
+                  placeholder="Viết gì đó ..."
                   {...register("content")}
                 ></textarea>
               ) : (
@@ -261,7 +288,7 @@ const Detail = () => {
                             onClick={() => handleDeleteComment(item.id)}
                             key={item.id}
                           >
-                            Xóa
+                            Xóa <i className="fa fa-trash"></i>
                           </a>
                         ) : (
                           ""
@@ -280,7 +307,7 @@ const Detail = () => {
             </div> */}
             <div className="section mb-3">
               <div className="section mb-2">
-                <h2>Similar</h2>
+                <h2>Có thể bạn sẽ thích</h2>
                 <MovieList
                   category={categoryComics.relate}
                   endpoint={item.endpoint}

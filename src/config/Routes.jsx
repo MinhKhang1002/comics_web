@@ -61,7 +61,7 @@ const Router = () => {
       />
       <Route
         path="/book/detail/:endpoint"
-        element={true ? <Detail></Detail> : <Navigate to="/login" />}
+        element={accessToken ? <Detail></Detail> : <Navigate to="/login" />}
       />
 
       {/* <Route path="/book/detail/:endpoint" element={<Detail></Detail>} />      sửa detail */}

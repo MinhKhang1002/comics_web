@@ -11,43 +11,19 @@ import "./hero-slide.scss";
 import { Link, useNavigate } from "react-router-dom";
 
 const HeroSlide = () => {
-  // const [movieItems, setMovieItems] = useState([]);
   const [comic, setComic] = useState([]);
   SwiperCore.use([Autoplay]);
   useEffect(() => {
-    const getMovies = async () => {
-      const params = { page: 1 };
+    const getComics = async () => {
       try {
-        // const response = await tmdbApi.getMoviesList(movieType.popular, {
-        //   params,
-        // });
-        // const res = await comics.getTopRating();
-
-        // setMovieItems(response.results.slice(0, 6));
         const res = await comics.getTopSearch();
         setComic(res.data.data.slice(1, 10));
-        // setComic(res.data.data.slice(0, 6));
-        // console.log(res.data.data);
-
-        // console.log(response.results);
       } catch {
         console.log("error");
       }
     };
-    getMovies();
+    getComics();
   }, []);
-
-  // useEffect(() => {
-  //   const getComics = async () => {
-  //     try {
-  //       const res = await comics.getTopRating();
-  //       setComic(res.data.data.slice(0, 2));
-  //     } catch {
-  //       console.log("error");
-  //     }
-  //   };
-  //   getComics();
-  // }, []);
 
   return (
     <div className="hero-slide">
@@ -94,7 +70,7 @@ const HeroSlideItem = (props) => {
           <div className="overview">{item.description}</div>
           <div className="btns">
             <Link to={link}>
-              <Button>Watch now</Button>
+              <Button>Xem ngay</Button>
             </Link>
           </div>
         </div>

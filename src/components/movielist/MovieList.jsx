@@ -105,9 +105,9 @@ const MovieList = (props) => {
   );
 };
 
-MovieList.propTypes = {
-  category: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-};
+// MovieList.propTypes = {
+//   category: PropTypes.string.isRequired,
+//   type: PropTypes.string.isRequired,
+// };
 
 export default MovieList;
