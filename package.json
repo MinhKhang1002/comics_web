@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "antd": "^4.22.4",
     "axios": "^0.22.0",
     "formik": "^2.2.9",
     "js-cookie": "^3.0.1",
@@ -15,6 +16,7 @@
     "react-hook-form": "^7.32.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "4.0.3",
+    "react-select": "^5.4.0",
     "recoil": "^0.7.3",
     "sass": "^1.42.1",
     "surge": "^0.23.1",
@@ -44,5 +46,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.1.8"
   }
 }

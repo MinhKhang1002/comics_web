@@ -26,7 +26,7 @@ const MovieCard = (props) => {
           <i>Đọc truyện</i>
         </Button>
       </div>
-      <h3>{item.title || item.name}</h3>
+      <h4>{item.title || item.name}</h4>
     </Link>
   );
 };

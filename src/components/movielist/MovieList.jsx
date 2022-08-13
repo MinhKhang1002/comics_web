@@ -68,10 +68,10 @@ const MovieList = (props) => {
             response = await comics.getHistory(config);
             break;
 
-          // default:
-          //   response = await tmdbApi.getTvList(props.type, {
-          //     params,
-          //   });
+          default:
+          // response = await tmdbApi.getTvList(props.type, {
+          //   params,
+          // });
         }
       } else {
         response = await comics.relate(props.endpoint);

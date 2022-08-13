@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useRef, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { access_token, username } from "../../store/login";
@@ -21,6 +21,7 @@ const headerNav = [
 ];
 
 const Header = () => {
+  let navigate = useNavigate();
   const [accessToken, setAccessToken] = useRecoilState(access_token);
   const [user, setUser] = useRecoilState(username);
 
@@ -48,6 +49,7 @@ const Header = () => {
     sessionStorage.removeItem("token");
     setAccessToken("");
     setUser("");
+    navigate("/login");
   };
   return (
     <div ref={headerRef} className="header">
@@ -62,7 +64,23 @@ const Header = () => {
               <Link to={e.path}>{e.display}</Link>
             </li>
           ))}
-          {user ? <li>Hello {user}</li> : ""}
+          <div className="div">
+            <Link to="/edit">
+              {user ? (
+                <img
+                  src={user.avatar}
+                  className="avatar"
+                  alt=""
+                  width="40"
+                  height="40"
+                />
+              ) : (
+                ""
+              )}
+              {user ? <span>Hello {user.username}</span> : ""}
+            </Link>
+          </div>
+
           <li>
             <Link to="/login" onClick={signOut}>
               {accessToken ? "Đăng xuất " : "Đăng nhập"}

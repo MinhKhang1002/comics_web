@@ -1,12 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import {
-  category,
-  categoryComics,
-  comics,
-  movieType,
-  tvType,
-} from "../../api/tmdbApi";
+import { comics } from "../../api/tmdbApi";
 import MovieCard from "../moviecard/MovieCard";
 import tmdbApi from "../../api/tmdbApi";
 import "./movie-grid.scss";
@@ -21,29 +15,11 @@ const MovieGrid = (props) => {
   useEffect(() => {
     const getList = async () => {
       let response = null;
-      // if (keyword == undefined) {
-      //   const params = {};
-      //   switch (props.category) {
-      //     case category.movie:
-      //       response = await comics.getAll(1);
-      //       break;
-      //     default:
-      //       response = await tmdbApi.getTvList(tvType.popular, { params });
-      //   }
-      // } else {
-      //   const params = {
-      //     query: keyword,
-      //   };
-      //   response = await tmdbApi.search(props.category, { params });
-      // }
       if (keyword == undefined) {
-        // const params ={};
         response = await comics.getAll(page);
       } else {
         const params = { title: keyword };
         response = await comics.search(params);
-        console.log(response.data.data);
-        // console.log("paaaaaa", params);
       }
 
       setItems(response.data.data);
@@ -94,7 +70,6 @@ const MovieGrid = (props) => {
 
 const MovieSearch = (props) => {
   const navigate = useNavigate();
-  console.log(props.category);
   const [keyword, setKeyword] = useState(props.keyword ? props.keyword : "");
 
   const goToSearch = useCallback(() => {

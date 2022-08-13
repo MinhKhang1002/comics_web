@@ -27,9 +27,9 @@ function Form(props) {
       try {
         const response = await loginApi.signUp(data);
         // setAccessToken(response.data.data[0].accessToken);
-        // sessionStorage.setItem("token", response.data.data[0].accessToken);
+        sessionStorage.setItem("token", response.data.data[0].accessToken);
         alert("Đăng ký thành công");
-        navigate("/home");
+        navigate("/login");
       } catch (error) {
         alert("Đăng ký thất bại vui lòng thử lại");
       }
@@ -63,7 +63,7 @@ function Form(props) {
         </div>
 
         {Object.keys(errors).length !== 0 && (
-          <ErrorMessage message="Please enter a valid Email"></ErrorMessage>
+          <ErrorMessage message="Vui lòng nhập đúng định dạng email @xxx.xxx"></ErrorMessage>
         )}
 
         <div class="form-group">
@@ -78,7 +78,7 @@ function Form(props) {
           />
         </div>
         {errors.username?.type === "required" && (
-          <ErrorMessage message="Username is required"></ErrorMessage>
+          <ErrorMessage message="Username không được trống"></ErrorMessage>
         )}
         <div class="form-group">
           <i class="fas fa-key"></i>
@@ -97,7 +97,7 @@ function Form(props) {
           </div>
         </div>
         {errors.username?.type === "required" && (
-          <ErrorMessage message="Username is required"></ErrorMessage>
+          <ErrorMessage message="Password không được trống"></ErrorMessage>
         )}
 
         <input

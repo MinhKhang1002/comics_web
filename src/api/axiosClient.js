@@ -27,7 +27,7 @@ axiosClient.interceptors.response.use(
 );
 
 export const comicsAPI = axios.create({
-  baseURL: "http://one-read-v2.herokuapp.com/",
+  baseURL: "http://localhost:3000/",
   headers: {
     "Content-Type": "application/json",
   },

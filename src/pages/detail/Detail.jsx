@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router";
 
-import tmdbApi, { categoryComics, comics, movieType } from "../../api/tmdbApi";
+import tmdbApi, { categoryComics, comics } from "../../api/tmdbApi";
 import apiConfig from "../../api/apiConfig";
 import "./detail.scss";
 import CastList from "./CastList";
-import VideoList from "./VideoList";
 import MovieList from "../../components/movielist/MovieList";
 import Button, { OutlineButton } from "../../components/button/Button";
 import { Link } from "react-router-dom";
@@ -17,9 +16,7 @@ import { useForm } from "react-hook-form";
 const Detail = () => {
   const [accessToken, setAccessToken] = useRecoilState(access_token);
   const [user, setUser] = useRecoilState(username);
-  const [inputValue, setInputValue] = useState("123");
-
-  // console.log(user);
+  const [inputValue, setInputValue] = useState("");
   const {
     register,
     reset,
@@ -38,23 +35,17 @@ const Detail = () => {
   };
   const onSubmit = (data) => {
     const comment = async () => {
+      console.log(data);
       const coment = await comicsAPI.post(`/comment/${endpoint}`, data, config);
       const newComment = coment.data.data[0];
-      console.log(newComment);
-
       const newComments = [...comments];
       newComments.unshift(newComment);
-      setInputValue("");
       setComments(newComments);
       reset();
-
-      // console.log(newComments.data.data[0]);
-      // setComments([...comments, ...newComments.data.data[0]]);
     };
     comment();
   };
 
-  const params = {};
   useEffect(() => {
     const getDetail = async () => {
       const response = await comics.detail(endpoint);
@@ -69,12 +60,8 @@ const Detail = () => {
       setItem(response.data.data[0]);
       setChapters(responseChapter.data.data);
       setComments(responseComments.data.data);
-
-      // console.log(responseChapter.data.data);
-      // console.log(response.data.data);
       window.scrollTo(0, 0);
     };
-    // console.log(item);
 
     getDetail();
   }, [endpoint]);
@@ -101,12 +88,8 @@ const Detail = () => {
       );
 
       if (follow.data.status === "success") {
-        // alert("Follow Thành công");
         setIsFollow(true);
       }
-
-      // console.log(newComments.data.data[0]);
-      // setComments([...comments, ...newComments.data.data[0]]);
     };
     follow();
   };
@@ -117,24 +100,14 @@ const Detail = () => {
         data,
         config
       );
-
       if (follow.data.status === "success") {
-        // alert("Unfollow Thành công");
         setIsFollow(false);
       } else {
         alert("Thất bại !");
       }
-
-      // console.log(newComments.data.data[0]);
-      // setComments([...comments, ...newComments.data.data[0]]);
     };
     follow();
   };
-  // const handleUserInput = (e) => {
-  //   e.preventDefault();
-  //   console.log(e.target.value);
-  //   setInputValue(e.target.value);
-  // };
 
   return (
     <>
@@ -199,16 +172,10 @@ const Detail = () => {
                     Follow
                   </Button>
                 ) : (
-                  <OutlineButton
-                    className="small ml-1"
-                    onClick={handleUnfollow}
-                  >
+                  <OutlineButton className="small" onClick={handleUnfollow}>
                     Un Follow
                   </OutlineButton>
                 )}
-                {/* <OutlineButton className="small ml-1" onClick={handleUnfollow}>
-                  Un Follow
-                </OutlineButton> */}
               </div>
               <p className="overview">{item.description}</p>
 
@@ -281,7 +248,7 @@ const Detail = () => {
                         <span className="publish py-3 d-inline-block w-100">
                           {item.time}
                         </span>
-                        {item.user.username === user ? (
+                        {item.user.username === user.username ? (
                           <a
                             href="#publish"
                             className="test"

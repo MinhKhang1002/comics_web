@@ -102,7 +102,7 @@ export const comics = {
     const url = "book/relate-book/" + endpoint;
     return comicsAPI.get(url);
   },
-  getAll: (page) => {
+  getAllBook: (page) => {
     const url = "/book/all?page=" + page;
     return comicsAPI.get(url);
   },
@@ -113,6 +113,54 @@ export const comics = {
   chapter: (endpoint) => {
     const url = `chapter/all/${endpoint}`;
     return comicsAPI.get(url);
+  },
+  deleteBook: (endpoint, config) => {
+    const url = `book/${endpoint}`;
+    return comicsAPI.delete(url, config);
+  },
+  addBook: (params, config) => {
+    const url = "book";
+    return comicsAPI.post(url, params, config);
+  },
+  editBook: (endpoint, params, config) => {
+    const url = `book/${endpoint}`;
+    return comicsAPI.patch(url, params, config);
+  },
+  getAllGenre: () => {
+    const url = "genre/all";
+    return comicsAPI.get(url);
+  },
+  addGenre: (params, config) => {
+    const url = "genre";
+    return comicsAPI.post(url, params, config);
+  },
+  editGenre: (endpoint, params, config) => {
+    const url = `genre/${endpoint}`;
+    return comicsAPI.patch(url, params, config);
+  },
+  deleteGenre: (endpoint, config) => {
+    const url = `genre/${endpoint}`;
+    return comicsAPI.delete(url, config);
+  },
+  getAllUser: () => {
+    const url = "user/all";
+    return comicsAPI.get(url);
+  },
+  banUser: (username, config, params) => {
+    const url = `/user/ban/${username}`;
+    return comicsAPI.post(url, params, config);
+  },
+  unBanUser: (username, config, params) => {
+    const url = `/user/unban/${username}`;
+    return comicsAPI.post(url, params, config);
+  },
+  changeRole: (username, params, config) => {
+    const url = `user/change-role/${username}`;
+    return comicsAPI.patch(url, params, config);
+  },
+  deleteUser: (username, config) => {
+    const url = `user/`;
+    return comicsAPI.delete(url, username, config);
   },
 };
 
