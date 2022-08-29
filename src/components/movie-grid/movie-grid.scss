@@ -28,7 +28,7 @@
     button {
         position: absolute;
         right: 0;
-        top: 2px;
+        top: 0.5px;
 
         @include mobile {
             right: 1px;

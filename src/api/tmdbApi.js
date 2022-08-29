@@ -162,6 +162,14 @@ export const comics = {
     const url = `user/`;
     return comicsAPI.delete(url, username, config);
   },
+  getChapter: (endpoint) => {
+    const url = `chapter/all/${endpoint}`;
+    return comicsAPI.get(url);
+  },
+  addChapter: (endpoint, params, config) => {
+    const url = `chapter/comic/${endpoint}`;
+    return comicsAPI.post(url, params, config);
+  },
 };
 
 export default tmdbApi;

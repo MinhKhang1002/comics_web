@@ -145,39 +145,51 @@ function Products(props) {
       render: (text) => (
         <>
           {text === 0 ? (
-            <h3 style={{ color: "LightGreen" }}>Kích hoạt</h3>
+            <i
+              style={{ color: "ForestGreen" }}
+              class="text-xl fa-solid fa-lock-open"
+            ></i>
           ) : (
-            <h3 style={{ color: "red" }}>Bị khóa</h3>
+            <i
+              style={{ color: "FireBrick" }}
+              class="text-xl fa-solid fa-lock"
+            ></i>
           )}
         </>
       ),
     },
     {
-      title: "User Status",
+      title: "Change Status",
       key: "userstatus",
       fixed: "right",
       width: 100,
       render: (text, record) =>
         record.status === 0 ? (
           <Popconfirm
-            title="Bạn có chắc chắn xóa không?"
+            title="Bạn có chắc chắn khóa tài khoản không?"
             onConfirm={() => confirmStatus(text, record)}
             onCancel={cancel}
             okText="Yes"
             cancelText="No"
           >
-            <Button type="danger">Ban</Button>
+            <Button>
+              <i class=" text-xl fa-solid fa-hammer"></i>
+            </Button>
           </Popconfirm>
         ) : (
           <Popconfirm
-            title="Bạn có chắc chắn xóa không?"
+            title="Bạn có chắc chắn không?"
             onConfirm={() => confirmStatus(text, record)}
             onCancel={cancel}
             okText="Yes"
             cancelText="No"
           >
-            <Button type="primary" className="yellow">
-              Unban
+            <Button>
+              {" "}
+              <i
+                style={{ color: "ForestGreen" }}
+                class=" text-xl fa-solid fa-arrow-rotate-left"
+              ></i>
             </Button>
           </Popconfirm>
         ),
@@ -197,7 +209,7 @@ function Products(props) {
       ),
     },
     {
-      title: "Role Status",
+      title: "Change Role",
       key: "edit",
       fixed: "right",
       width: 100,
@@ -210,42 +222,13 @@ function Products(props) {
             okText="Yes"
             cancelText="No"
           >
-            <Button type="ghost">Change</Button>
+            <Button>
+              <i class="text-xl fa-solid fa-screwdriver-wrench"></i>
+            </Button>
           </Popconfirm>
         ) : (
           ""
         ),
-    },
-
-    {
-      title: "Delete",
-      key: "delete",
-      fixed: "right",
-      width: 100,
-      render: (text, record) => (
-        <Popconfirm
-          title="Bạn có chắc chắn xóa không?"
-          onConfirm={() => confirm(text, record)}
-          onCancel={cancel}
-          okText="Yes"
-          cancelText="No"
-        >
-          <Button type="danger">
-            <i class="fa-solid fa-trash-can"></i>
-          </Button>
-        </Popconfirm>
-      ),
-    },
-    {
-      title: "Edit",
-      key: "edit",
-      fixed: "right",
-      width: 100,
-      render: (text, record) => (
-        <Button type="primary" onClick={() => handleEdit(text, record)}>
-          <i class="fa-solid fa-pen-to-square"></i>
-        </Button>
-      ),
     },
   ];
 
@@ -260,13 +243,13 @@ function Products(props) {
         })}
       ></Table>
 
-      <Button type="primary" className="mb-10" onClick={handleToggleAdd}>
+      {/* <Button type="primary" className="mb-10" onClick={handleToggleAdd}>
         Thêm sản phẩm
-      </Button>
-      {toggleAdd === true && (
+      </Button> */}
+      {/* {toggleAdd === true && (
         <AddBook products={items} setProducts={items}></AddBook>
-      )}
-      {toggleEdit === true && (
+      )} */}
+      {/* {toggleEdit === true && (
         <EditCustomer
           products={items}
           setProducts={product}
@@ -274,7 +257,7 @@ function Products(props) {
           getProducts={getProducts}
           setToggleEdit={setToggleEdit}
         ></EditCustomer>
-      )}
+      )} */}
     </div>
   );
 }

@@ -83,3 +83,8 @@ export const profileEmployeeState = atom({
   key: "profileEmployeeState", // unique ID (with respect to other atoms/selectors)
   default: [], // default value (aka initial value)
 });
+
+export const endpointBook = atom({
+  key: "endpointBook", // unique ID (with respect to other atoms/selectors)
+  default: [], // default value (aka initial value)
+});

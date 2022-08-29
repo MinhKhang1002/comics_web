@@ -18,16 +18,18 @@ function Form(props) {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
-  const link = "login";
+  const link = "/login";
 
   //   const [accessToken, setAccessToken] = useRecoilState(access_token);
 
   const onSubmit = (data) => {
     const getToken = async () => {
       try {
+        console.log(data);
         const response = await loginApi.signUp(data);
+        console.log(response);
         // setAccessToken(response.data.data[0].accessToken);
-        sessionStorage.setItem("token", response.data.data[0].accessToken);
+        // sessionStorage.setItem("token", response.data.data[0].accessToken);
         alert("Đăng ký thành công");
         navigate("/login");
       } catch (error) {
@@ -37,7 +39,6 @@ function Form(props) {
     getToken();
   };
   //   const link = "/forgot-pasword";
-  const linkLogin = "/login";
 
   return (
     <div id="wrapper">

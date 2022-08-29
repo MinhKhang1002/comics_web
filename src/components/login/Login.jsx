@@ -22,24 +22,22 @@ function Form(props) {
   const onSubmit = (data) => {
     const getToken = async () => {
       try {
-        // const response = await loginApi.getToken(data);
+        const response = await loginApi.getToken(data);
 
-        // setAccessToken(response.data.data[0].accessToken);
-        setAccessToken(
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoia2hhbmdobTEiLCJwYXNzd29yZCI6IiIsImF2YXRhciI6Imh0dHBzOi8vZmlyZWJhc2VzdG9yYWdlLmdvb2dsZWFwaXMuY29tL3YwL2Ivb25lcmVhZC03NTgzYy5hcHBzcG90LmNvbS9vL3VzZXIlMkZraGFuZ2htMSUyRmF2YXRhci5wbmc_YWx0PW1lZGlhJnRva2VuPTYyZGEwOWEwLThhZjgtNDFkNy1hYmViLTZhMzM2NDQ1N2Y4MiIsInN0YXR1cyI6MCwiZW1haWwiOiJuMThkY2MueHh4LmFhenphenp6eiIsInJvbGUiOjF9LCJpYXQiOjE2NjAxNDk3NTMsImV4cCI6MTY5MTY4NTc1M30.wndws6Zf6y7mftxABo2sHN-5-4vfvBQ3wenr90wH9UA"
-        );
-        // setUser(response.data.data[0].user);
-        // console.log(response.data.data[0].user);
+        setAccessToken(response.data.data[0].accessToken);
+        // setAccessToken(
+        //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoia2hhbmdobTEiLCJwYXNzd29yZCI6IiIsImF2YXRhciI6Imh0dHBzOi8vZmlyZWJhc2VzdG9yYWdlLmdvb2dsZWFwaXMuY29tL3YwL2Ivb25lcmVhZC03NTgzYy5hcHBzcG90LmNvbS9vL3VzZXIlMkZraGFuZ2htMSUyRmF2YXRhci5wbmc_YWx0PW1lZGlhJnRva2VuPTYyZGEwOWEwLThhZjgtNDFkNy1hYmViLTZhMzM2NDQ1N2Y4MiIsInN0YXR1cyI6MCwiZW1haWwiOiJuMThkY2MueHh4LmFhenphenp6eiIsInJvbGUiOjF9LCJpYXQiOjE2NjAxNDk3NTMsImV4cCI6MTY5MTY4NTc1M30.wndws6Zf6y7mftxABo2sHN-5-4vfvBQ3wenr90wH9UA"
+        // );
+        setUser(response.data.data[0].user);
+        console.log(response.data.data[0].user);
 
-        // sessionStorage.setItem("token", response.data.data[0].accessToken);
-        // console.log(user.username);
-        // if (response.data.data[0].user.role === 0) {
-        navigate("/admin");
-        // } else {
-        //   navigate("/admin");
-        // }
-
-        // console.log(response);
+        sessionStorage.setItem("token", response.data.data[0].accessToken);
+        console.log(user.username);
+        if (response.data.data[0].user.role === 0) {
+          navigate("/home");
+        } else {
+          navigate("/admin");
+        }
       } catch (error) {
         alert("Sai tên đăng nhập hoặc mật khẩu");
       }

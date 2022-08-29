@@ -41,7 +41,7 @@ function EditGenre({
         );
         console.log(response);
         if (response.status === 200) {
-          // getProducts();
+          getProducts();
           setValue("endpoint", "");
           setValue("title", "");
           setValue("description", "");

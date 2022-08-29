@@ -4,6 +4,7 @@ import { message, Button, Space } from "antd";
 import { comics } from "../../api/tmdbApi";
 import { useRecoilState } from "recoil";
 import { access_token } from "../../store/login";
+import { loginApi } from "../../api/loginApi";
 function EditCustomer({
   product,
   products,
@@ -29,36 +30,27 @@ function EditCustomer({
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(product);
-    const { endpoint, title, description } = data;
+    const { avatar, email } = data;
 
-    const editGenre = async () => {
+    const editUser = async () => {
+      const formData = new FormData();
+      formData.append("avatar", avatar[0]);
+      formData.append("email", email);
+      console.log(formData);
       try {
-        const response = await comics.editGenre(
-          endpoint,
-          { title, description },
-          config
-        );
+        const response = await loginApi.edit(formData, config);
         console.log(response);
-        if (response.status === 200) {
-          // getProducts();
-          setValue("endpoint", "");
-          setValue("title", "");
-          setValue("description", "");
-
-          success();
-        } else {
-          error();
-        }
-      } catch {
-        console.log("errrrrrrrrrrrrrr");
+        // setProducts(response.data.data[0]);
+        alert("Cập nhật thành công");
+      } catch (error) {
+        alert("Vui lòng kiểm tra lại");
       }
     };
-    editGenre();
+    editUser();
   };
-  setValue("endpoint", product !== undefined ? product.endpoint : "");
-  setValue("title", product !== undefined ? product.title : "");
-  setValue("description", product !== undefined ? product.description : "");
+  setValue("username", product !== undefined ? product.username : "");
+  setValue("email", product !== undefined ? product.email : "");
+  setValue("avatar", product !== undefined ? product.avatar : "");
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -83,7 +75,7 @@ function EditCustomer({
 
       <h3>Hình ảnh:</h3>
       <div className="flex ">
-        <img src={product.thumb} alt=""></img>
+        <img src={product.avatar} width="100" alt=""></img>
 
         <input
           className="input"

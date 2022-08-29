@@ -29,17 +29,25 @@ function EditProduct({
     setValue,
     formState: { errors },
   } = useForm();
+  setValue("title", product !== undefined ? product.title : "");
+  setValue("author", product !== undefined ? product.author : "");
+  setValue("description", product !== undefined ? product.description : "");
+  setValue("type", product !== undefined ? product.type : "");
+  setValue("endpoint", product !== undefined ? product.endpoint : "");
   const onSubmit = (data) => {
     const { endpoint, title, thumb, author, description, type, genres } = data;
     console.log(endpoint, title, thumb, author, description, type);
     const formData = new FormData();
     formData.append("title", title);
+
     if (thumb.length === 0) {
+      console.log(123123123);
     } else {
       formData.append("thumb", thumb[0]);
+      formData.append("theme", thumb[0]);
     }
     // formData.append("thumb", thumb[0]);
-    formData.append("theme", thumb[0]);
+
     formData.append("author", author);
     formData.append("description", description);
     formData.append("type", type);
@@ -50,28 +58,25 @@ function EditProduct({
         const response = await comics.editBook(endpoint, formData, config);
         console.log(response);
         if (response.status === 200) {
+          getProducts();
           setValue("endpoint", "");
           setValue("title", "");
           setValue("thumb", "");
           setValue("author", "");
           setValue("description", "");
           setValue("type", "");
-          getProducts();
+
           success();
         } else {
           error();
         }
       } catch {
         console.log("errrrrrrrrrrrrrr");
+        console.log(data);
       }
     };
     editBook();
   };
-  setValue("title", product !== undefined ? product.title : "");
-  setValue("author", product !== undefined ? product.author : "");
-  setValue("description", product !== undefined ? product.description : "");
-  setValue("type", product !== undefined ? product.type : "");
-  setValue("endpoint", product !== undefined ? product.endpoint : "");
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -95,7 +100,7 @@ function EditProduct({
       </div>
       <h3>Hình ảnh:</h3>
       <div className="flex ">
-        <img src={product.thumb} alt=""></img>
+        <img src={product.thumb} alt="" width="400"></img>
 
         <input
           className="input"

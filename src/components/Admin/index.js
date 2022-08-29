@@ -3,11 +3,12 @@ import { Layout, Menu } from "antd";
 import "antd/dist/antd.css";
 import Book from "./Book";
 import Genre from "./Genre";
+import Chapter from "./Chapter";
 // import EmployeeDetail from "./EmployeesDetails";
 // import DeliveryDocketDetails from "./DeliveryDocketDetails";
 // import ReceivedDocketDetails from "./ReceivedDocketDetails";
 // import CustomerDetails from "./CustomerDetails";
-import Customers from "./Customers";
+import User from "./User";
 // import DeliveryDocket from "./DeliveryDocket";
 // import CustomerDeliveryDocketDetails from "./CustomerDeliveryDocketDetails";
 // import CreateReceiveDocket from "./CreateReceiveDocket";
@@ -121,9 +122,9 @@ function Index(props) {
             >
               {tab === 1 && <Book></Book>}
               {tab === 2 && <Genre></Genre>}
-              {/* {tab === 3 && <EmployeeDetail></EmployeeDetail>} */}
-              {tab === 9 && <Customers></Customers>}
-              {/* {tab === 11 && <Customers></Customers>} */}
+              {tab === 3 && <Chapter></Chapter>}
+              {tab === 9 && <User></User>}
+              {tab === 11 && <ProfileEmployee></ProfileEmployee>}
             </div>
           </Content>
           <Footer

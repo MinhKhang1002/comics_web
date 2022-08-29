@@ -57,8 +57,6 @@ const Router = () => {
         <Route path="" element={<Login></Login>} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/forgot-pasword" element={<ForgotPassword />} />
-
-        {/* <Route path="/search/:keyword" element={<Index></Index>} /> */}
       </Routes>
       {accessToken && user.role === 0 ? (
         <>
@@ -127,7 +125,7 @@ const Router = () => {
           {accessToken && user.role === 1 ? (
             <Routes>
               <Route path="/admin" element={<Index></Index>} />
-              <Route path="/a" element={<Login></Login>} />
+              {/* <Route path="/a" element={<Login></Login>} /> */}
             </Routes>
           ) : (
             ""

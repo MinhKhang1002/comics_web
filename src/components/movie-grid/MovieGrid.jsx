@@ -15,8 +15,8 @@ const MovieGrid = (props) => {
   useEffect(() => {
     const getList = async () => {
       let response = null;
-      if (keyword == undefined) {
-        response = await comics.getAll(page);
+      if (keyword === undefined) {
+        response = await comics.getAllBook(page);
       } else {
         const params = { title: keyword };
         response = await comics.search(params);
@@ -36,7 +36,7 @@ const MovieGrid = (props) => {
         page: page + 1,
       };
       try {
-        response = await comics.getAll(page);
+        response = await comics.getAllBook(page);
       } catch {
         console.log("error");
       }

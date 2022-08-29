@@ -6,6 +6,8 @@ import { productState } from "../../store/login";
 import EditBook from "./EditBook";
 import { comicsAPI } from "../../api/axiosClient";
 import { comics } from "../../api/tmdbApi";
+import Chapter from "./Chapter";
+import { tabState, key, endpointBook } from "../../store/login";
 
 import { access_token } from "../../store/login";
 
@@ -14,7 +16,10 @@ function Products(props) {
   const [product, setProduct] = useState();
   const [toggleAdd, setToggleAdd] = useState(false);
   const [toggleEdit, setToggleEdit] = useState(false);
+  const [toggleAddChapter, setTonggleAddChapter] = useState(false);
   const [page, setPage] = useState(1);
+  const [tab, setTab] = useRecoilState(tabState);
+  const [endpoint, setEndpoint] = useRecoilState(endpointBook);
 
   const [accessToken, setAccessToken] = useRecoilState(access_token);
   const [keyword, setKeyword] = useState("");
@@ -49,7 +54,7 @@ function Products(props) {
       page: page + 1,
     };
     try {
-      response = await comics.getAll(page);
+      response = await comics.getAllBook(page);
     } catch {
       console.log("error");
     }
@@ -87,6 +92,10 @@ function Products(props) {
     setProduct(record);
   };
 
+  const handleAddChapter = (text, record) => {
+    setEndpoint(record.endpoint);
+    setTab(3);
+  };
   const handleToggleAdd = () => {
     setToggleAdd(!toggleAdd);
   };
@@ -120,6 +129,29 @@ function Products(props) {
       key: "thumb",
       render: (text) => <img src={text} width="100" alt="" />,
     },
+    {
+      title: "Add Chapter",
+      key: "addchapter",
+      fixed: "addchapter",
+      width: 100,
+      render: (text, record) => (
+        <Button onClick={() => handleAddChapter(text, record)}>
+          <i class="text-xl  fa-solid fa-book"></i>
+        </Button>
+      ),
+    },
+
+    {
+      title: "Edit",
+      key: "edit",
+      fixed: "right",
+      width: 100,
+      render: (text, record) => (
+        <Button type="primary" onClick={() => handleEdit(text, record)}>
+          <i class="fa-solid fa-pen-to-square"></i>
+        </Button>
+      ),
+    },
 
     {
       title: "Delete",
@@ -138,17 +170,6 @@ function Products(props) {
             <i class="fa-solid fa-trash-can"></i>
           </Button>
         </Popconfirm>
-      ),
-    },
-    {
-      title: "Edit",
-      key: "edit",
-      fixed: "right",
-      width: 100,
-      render: (text, record) => (
-        <Button type="primary" onClick={() => handleEdit(text, record)}>
-          <i class="fa-solid fa-pen-to-square"></i>
-        </Button>
       ),
     },
   ];

@@ -12,6 +12,7 @@ import { comicsAPI } from "../../api/axiosClient";
 import { access_token, username } from "../../store/login";
 import { useRecoilState } from "recoil";
 import { useForm } from "react-hook-form";
+import useItems from "antd/lib/menu/hooks/useItems";
 
 const Detail = () => {
   const [accessToken, setAccessToken] = useRecoilState(access_token);
@@ -179,11 +180,11 @@ const Detail = () => {
               </div>
               <p className="overview">{item.description}</p>
 
-              <div className="cast">
+              <div className="genres">
                 <div className="section__header">
                   <h2>Tác giả</h2>
                 </div>
-                <CastList id="424" />
+                <span className="genre__item">{item.author}</span>
               </div>
               <div className="chapter">
                 {chapters.map((chapter) => (

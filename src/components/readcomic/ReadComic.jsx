@@ -39,15 +39,12 @@ const ReadComic = (props) => {
           {detail.images &&
             detail.images[0].includes("https") &&
             detail.images.map((item, i) => (
-              <img key={i} src={item} alt=""></img>
+              <img className="comic" key={i} src={item} alt=""></img>
             ))}
 
           {detail.images &&
             detail.images[0] !== "https://i.imgur.com/Znxamr4.jpg" &&
             detail.images.map((item, i) => <p className="comic">{item}</p>)}
-          {/* <img src="https://i.imgur.com/Znxamr4.jpg" alt="" />
-          <img src="https://i.imgur.com/s8URzVE.jpg" alt="" />
-          <img src="https://i.imgur.com/vMkRtnV.jpg" alt="" /> */}
         </>
       )}
     </div>
